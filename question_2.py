@@ -43,7 +43,7 @@ class GRNG:
                     3 - self.x * self.x) - 2.15787544 * (1.5 - abs(self.x))
 
         elif 1 < abs(self.x) < 1.5:
-            self.g3 = 17.49731196 * math.exp(-0.5 * self.x * self.x) - 2.36785163 * pow(3 - abs(self.x), 2) -\
+            self.g3 = 17.49731196 * math.exp(-0.5 * self.x * self.x) - 2.36785163 * pow(3 - abs(self.x), 2) - \
                       2.15787544 * (1.5 - abs(self.x))
 
         elif 1.5 < abs(self.x) < 3:

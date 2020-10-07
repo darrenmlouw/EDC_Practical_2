@@ -31,7 +31,6 @@ class PRNG:
 
         return self.random
 
-
 # CODE FOR THE PDF GRAPH (Leave out if not in use)
 # UNCOMMENT UNTIL ----
 # print("Start")
