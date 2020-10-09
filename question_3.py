@@ -8,7 +8,7 @@ import time
 
 uniform = question_1.PRNG()
 
-bpskDict ={
+bpskDict = {
     "0": [0],
     "1": [1]
 }
@@ -536,7 +536,6 @@ def map16QAM():
     plt.semilogy(x, QAM16.BER, 'g--', label="16QAM BER")
     plt.semilogy(x, QAM16.SER, 'g-', label="16QAM SER")
 
-
 # Main of the Program
 # Increase number of bits in class instances above to create better line
 # Uncomment the function in which you wish to call
@@ -554,5 +553,3 @@ def map16QAM():
 # plt.legend()
 # plt.show()
 # ----------
-
-

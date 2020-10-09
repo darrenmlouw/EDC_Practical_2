@@ -9,7 +9,6 @@ import time
 from termcolor import colored, cprint
 import random
 
-
 uniform = question_1.PRNG()
 normal = question_2.GRNG()
 
@@ -17,7 +16,7 @@ normal = question_2.GRNG()
 class Multipath:
     def __init__(self, bits, numM):
         self.N = 200
-        self.rt = [] # [[0 for x in range(200)] for y in range(15)]
+        self.rt = []  # [[0 for x in range(200)] for y in range(15)]
         self.s = []
         self.delta1 = []
         self.delta2 = []
@@ -60,6 +59,7 @@ class Multipath:
                          complex(random.gauss(0, 1), random.gauss(0, 1)) / (2 * math.sqrt(3)),
                          complex(random.gauss(0, 1), random.gauss(0, 1)) / (2 * math.sqrt(3))]
 
+
 random.gauss(0, 1)
 
 # ----------------------------------------------------------------
@@ -82,6 +82,7 @@ for i in range(0, BPSK.total):
 # print("BPSK Bits: " + str(BPSK.bits))
 # print("BPSK Symb: " + str(BPSK.symbols))
 # print()
+
 # Setting bits and symbols
 duo = [0] * 2
 for i in range(QAM4.total):
@@ -155,9 +156,9 @@ PSK8.s.extend(PSK8.symbols)
 # print(BPSK.s)
 # print(QAM4.s)
 # print(PSK8.s)
-print("Length: " + str(len(BPSK.s)))
-print("Length: " + str(len(QAM4.s)))
-print("Length: " + str(len(PSK8.s)))
+# print("Length: " + str(len(BPSK.s)))
+# print("Length: " + str(len(QAM4.s)))
+# print("Length: " + str(len(PSK8.s)))
 # ----------------------------------------------------------------
 # Get Transmitted Bits and Symbols
 # ----------------------------------------------------------------
@@ -175,10 +176,16 @@ for i in range(0, 16):
     BPSK.sigma = 1 / (math.sqrt(10 ** (i / 10) * 2 * math.log(BPSK.M, 2)))
 
     for j in range(0, BPSK.total):
-        BPSK.rt.append((BPSK.s[j+2] * BPSK.cStatic[0]) + (BPSK.s[j+1] * BPSK.cStatic[1]) + (BPSK.s[j] * BPSK.cStatic[2]) + BPSK.sigma*(complex(random.gauss(0, 1), random.gauss(0, 1))/math.sqrt(2)))
+        BPSK.rt.append((BPSK.s[j + 2] * BPSK.cStatic[0]) + (BPSK.s[j + 1] * BPSK.cStatic[1]) + (
+                BPSK.s[j] * BPSK.cStatic[2]) + BPSK.sigma * (
+                               complex(random.gauss(0, 1), random.gauss(0, 1)) / math.sqrt(2)))
 
-        BPSK.delta1.append(pow(abs(BPSK.rt[j] - (((1) * BPSK.cStatic[0]) + (BPSK.s[j+1] * BPSK.cStatic[1]) + (BPSK.s[j] * BPSK.cStatic[2]))), 2))  # s/trans
-        BPSK.delta2.append(pow(abs(BPSK.rt[j] - (((-1) * BPSK.cStatic[0]) + (BPSK.s[j+1] * BPSK.cStatic[1]) + (BPSK.s[j] * BPSK.cStatic[2]))), 2))  # s/trans
+        BPSK.delta1.append(pow(abs(
+            BPSK.rt[j] - (((1) * BPSK.cStatic[0]) + (BPSK.s[j + 1] * BPSK.cStatic[1]) + (BPSK.s[j] * BPSK.cStatic[2]))),
+            2))  # s/trans
+        BPSK.delta2.append(pow(abs(BPSK.rt[j] - (
+                ((-1) * BPSK.cStatic[0]) + (BPSK.s[j + 1] * BPSK.cStatic[1]) + (BPSK.s[j] * BPSK.cStatic[2]))),
+                               2))  # s/trans
 
         if BPSK.delta1[j] < BPSK.delta2[j]:
             BPSK.transmittedSymbols.append(1)
@@ -198,7 +205,6 @@ for i in range(0, 16):
         if BPSK.s[k] != BPSK.transmittedSymbols[k]:
             BPSK.symErrorCount += 1
 
-
         # print(colored(BPSK.transmittedSymbols, 'blue'))
 
     x = []
@@ -211,8 +217,8 @@ for i in range(0, 16):
     # axs[i].scatter(x, y, marker='.',  label="Eb/No="+str(i), color='k',  alpha = 0.01)
     # axs[i].legend(loc="upper right", framealpha=0)
 
-    BPSK.SER.append(BPSK.symErrorCount/BPSK.total)
-    print(BPSK.SER)
+    BPSK.SER.append(BPSK.symErrorCount / BPSK.total)
+    # print(BPSK.SER)
 
 # plt.show()
 
@@ -221,10 +227,10 @@ for i in range(0, 16):
 # fig.subplots_adjust(hspace=0.001, wspace=0.001)
 # axs = axs.ravel()
 
-print("4QAM")
+# print("4QAM")
 for i in range(0, 16):
     QAM4.symErrorCount = 0
-    QAM4.transmittedSymbols = [complex(1/math.sqrt(2), 1/math.sqrt(2)), complex(1/math.sqrt(2), 1/math.sqrt(2))]
+    QAM4.transmittedSymbols = [complex(1 / math.sqrt(2), 1 / math.sqrt(2)), complex(1 / math.sqrt(2), 1 / math.sqrt(2))]
     QAM4.rt = []
     QAM4.delta1 = []
     QAM4.delta2 = []
@@ -233,13 +239,19 @@ for i in range(0, 16):
     QAM4.transmittedBits = []
     QAM4.bitErrorCount = 0
     QAM4.sigma = 1 / (math.sqrt(10 ** (i / 10) * 2 * math.log(QAM4.M, 2)))
-    for j in range(0, int(QAM4.total/2)):
-        QAM4.rt.append((QAM4.s[j+2] * QAM4.cStatic[0]) + (QAM4.s[j+1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]) + (QAM4.sigma*(complex(random.gauss(0, 1), random.gauss(0, 1))/math.sqrt(2))))
+    for j in range(0, int(QAM4.total / 2)):
+        QAM4.rt.append(
+            (QAM4.s[j + 2] * QAM4.cStatic[0]) + (QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]) + (
+                    QAM4.sigma * (complex(random.gauss(0, 1), random.gauss(0, 1)) / math.sqrt(2))))
 
-        QAM4.delta1.append(pow(abs(QAM4.rt[j] - (((complex(1/math.sqrt(2), 1/math.sqrt(2))) * QAM4.cStatic[0]) + (QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
-        QAM4.delta2.append(pow(abs(QAM4.rt[j] - (((complex(-1/math.sqrt(2), 1/math.sqrt(2))) * QAM4.cStatic[0]) + (QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
-        QAM4.delta3.append(pow(abs(QAM4.rt[j] - (((complex(-1/math.sqrt(2), -1/math.sqrt(2))) * QAM4.cStatic[0]) + (QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
-        QAM4.delta4.append(pow(abs(QAM4.rt[j] - (((complex(1/math.sqrt(2), -1/math.sqrt(2))) * QAM4.cStatic[0]) + (QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
+        QAM4.delta1.append(pow(abs(QAM4.rt[j] - (((complex(1 / math.sqrt(2), 1 / math.sqrt(2))) * QAM4.cStatic[0]) + (
+                QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
+        QAM4.delta2.append(pow(abs(QAM4.rt[j] - (((complex(-1 / math.sqrt(2), 1 / math.sqrt(2))) * QAM4.cStatic[0]) + (
+                QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
+        QAM4.delta3.append(pow(abs(QAM4.rt[j] - (((complex(-1 / math.sqrt(2), -1 / math.sqrt(2))) * QAM4.cStatic[0]) + (
+                QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
+        QAM4.delta4.append(pow(abs(QAM4.rt[j] - (((complex(1 / math.sqrt(2), -1 / math.sqrt(2))) * QAM4.cStatic[0]) + (
+                QAM4.s[j + 1] * QAM4.cStatic[1]) + (QAM4.s[j] * QAM4.cStatic[2]))), 2))
 
         # print(colored("DELTAS", 'blue'))
         # print(QAM4.delta1)
@@ -247,34 +259,36 @@ for i in range(0, 16):
         # print(QAM4.delta3)
         # print(QAM4.delta4)
 
-        if (QAM4.delta1[j] < QAM4.delta2[j]) and (QAM4.delta1[j] < QAM4.delta3[j]) and (QAM4.delta1[j] < QAM4.delta4[j]):
+        if (QAM4.delta1[j] < QAM4.delta2[j]) and (QAM4.delta1[j] < QAM4.delta3[j]) and (
+                QAM4.delta1[j] < QAM4.delta4[j]):
             # print(colored("1", 'yellow'))
             QAM4.transmittedSymbols.append(complex(1 / math.sqrt(2), 1 / math.sqrt(2)))
-        elif (QAM4.delta2[j] < QAM4.delta1[j]) and (QAM4.delta2[j] < QAM4.delta3[j]) and (QAM4.delta2[j] < QAM4.delta4[j]):
+        elif (QAM4.delta2[j] < QAM4.delta1[j]) and (QAM4.delta2[j] < QAM4.delta3[j]) and (
+                QAM4.delta2[j] < QAM4.delta4[j]):
             # print(colored("2", 'yellow'))
             QAM4.transmittedSymbols.append(complex(-1 / math.sqrt(2), 1 / math.sqrt(2)))
-        elif (QAM4.delta3[j] < QAM4.delta1[j]) and (QAM4.delta3[j] < QAM4.delta2[j]) and (QAM4.delta3[j] < QAM4.delta4[j]):
+        elif (QAM4.delta3[j] < QAM4.delta1[j]) and (QAM4.delta3[j] < QAM4.delta2[j]) and (
+                QAM4.delta3[j] < QAM4.delta4[j]):
             # print(colored("3", 'yellow'))
             QAM4.transmittedSymbols.append(complex(-1 / math.sqrt(2), -1 / math.sqrt(2)))
-        elif (QAM4.delta4[j] < QAM4.delta1[j]) and (QAM4.delta4[j] < QAM4.delta2[j]) and (QAM4.delta4[j] < QAM4.delta3[j]):
+        elif (QAM4.delta4[j] < QAM4.delta1[j]) and (QAM4.delta4[j] < QAM4.delta2[j]) and (
+                QAM4.delta4[j] < QAM4.delta3[j]):
             # print(colored("4", 'yellow'))
             QAM4.transmittedSymbols.append(complex(1 / math.sqrt(2), -1 / math.sqrt(2)))
         else:
             print("Error 4QAM")
 
-
         # if QAM4.s[j] != QAM4.transmittedSymbols[j] and j%2==0:
         #     QAM4.symErrorCount += 1
 
-
     QAM4.transmittedSymbols.pop(0)
     QAM4.transmittedSymbols.pop(0)
-    for j in range(0, int(QAM4.total/2)):
-        if QAM4.transmittedSymbols[j] == complex(1/math.sqrt(2), 1/math.sqrt(2)):
+    for j in range(0, int(QAM4.total / 2)):
+        if QAM4.transmittedSymbols[j] == complex(1 / math.sqrt(2), 1 / math.sqrt(2)):
             # print(colored("1", 'yellow'))
             QAM4.transmittedBits.append(0)
             QAM4.transmittedBits.append(0)
-        elif QAM4.transmittedSymbols[j] == complex(-1/math.sqrt(2), 1/math.sqrt(2)):
+        elif QAM4.transmittedSymbols[j] == complex(-1 / math.sqrt(2), 1 / math.sqrt(2)):
             # print(colored("2", 'yellow'))
             QAM4.transmittedBits.append(0)
             QAM4.transmittedBits.append(1)
@@ -287,15 +301,12 @@ for i in range(0, 16):
             QAM4.transmittedBits.append(1)
             QAM4.transmittedBits.append(0)
 
-
     for k in range(0, len(QAM4.bits)):
         if QAM4.bits[k] != QAM4.transmittedBits[k]:
             QAM4.bitErrorCount += 1
 
-
-    x=[]
-    y=[]
-
+    x = []
+    y = []
 
     # for l1 in range(0, len(QAM4.rt)):
     #     x.append(QAM4.rt[l1].real)
@@ -304,12 +315,11 @@ for i in range(0, 16):
     # axs[i].scatter(x, y, marker=".", alpha = 0.01, label="Eb/No="+str(i), color='k')
     # axs[i].legend(loc="upper right", framealpha=0)
 
-
     QAM4.BER.append(QAM4.bitErrorCount / QAM4.total)
 
-    QAM4.SER.append(QAM4.symErrorCount / (QAM4.total/2))
+    QAM4.SER.append(QAM4.symErrorCount / (QAM4.total / 2))
 
-    print(QAM4.SER)
+    # print(QAM4.SER)
 
 # plt.show()
 #
@@ -336,17 +346,30 @@ for i in range(0, 16):
     for j in range(0, int(PSK8.total / 3)):
         # print(colored("Start", 'green'))
         # print("Sigma: " + str(PSK8.sigma))
-        PSK8.rt.append((PSK8.s[j + 2] * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]) + (PSK8.sigma * (complex(random.gauss(0, 1), random.gauss(0, 1)) / math.sqrt(2))))
+        PSK8.rt.append(
+            (PSK8.s[j + 2] * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]) + (
+                    PSK8.sigma * (complex(random.gauss(0, 1), random.gauss(0, 1)) / math.sqrt(2))))
 
-
-        PSK8.delta1.append(pow(abs(PSK8.rt[j] - (((complex(1, 0)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta2.append(pow(abs(PSK8.rt[j] - (((complex(1 / math.sqrt(2), 1 / math.sqrt(2))) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta3.append(pow(abs(PSK8.rt[j] - (((complex(0, 1)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta4.append(pow(abs(PSK8.rt[j] - (((complex(-1 / math.sqrt(2), 1 / math.sqrt(2))) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta5.append(pow(abs(PSK8.rt[j] - (((complex(-1, 0)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta6.append(pow(abs(PSK8.rt[j] - (((complex(-1 / math.sqrt(2), -1 / math.sqrt(2))) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta7.append(pow(abs(PSK8.rt[j] - (((complex(0, -1)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
-        PSK8.delta8.append(pow(abs(PSK8.rt[j] - (((complex(1 / math.sqrt(2), -1 / math.sqrt(2))) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta1.append(pow(abs(PSK8.rt[j] - (
+                ((complex(1, 0)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (
+                PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta2.append(pow(abs(PSK8.rt[j] - (((complex(1 / math.sqrt(2), 1 / math.sqrt(2))) * PSK8.cStatic[0]) + (
+                PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta3.append(pow(abs(PSK8.rt[j] - (
+                ((complex(0, 1)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (
+                PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta4.append(pow(abs(PSK8.rt[j] - (((complex(-1 / math.sqrt(2), 1 / math.sqrt(2))) * PSK8.cStatic[0]) + (
+                PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta5.append(pow(abs(PSK8.rt[j] - (
+                ((complex(-1, 0)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (
+                PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta6.append(pow(abs(PSK8.rt[j] - (((complex(-1 / math.sqrt(2), -1 / math.sqrt(2))) * PSK8.cStatic[0]) + (
+                PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta7.append(pow(abs(PSK8.rt[j] - (
+                ((complex(0, -1)) * PSK8.cStatic[0]) + (PSK8.s[j + 1] * PSK8.cStatic[1]) + (
+                PSK8.s[j] * PSK8.cStatic[2]))), 2))
+        PSK8.delta8.append(pow(abs(PSK8.rt[j] - (((complex(1 / math.sqrt(2), -1 / math.sqrt(2))) * PSK8.cStatic[0]) + (
+                PSK8.s[j + 1] * PSK8.cStatic[1]) + (PSK8.s[j] * PSK8.cStatic[2]))), 2))
 
         # print(colored("DELTAS", 'blue'))
         # print(PSK8.delta1[j])
@@ -358,33 +381,56 @@ for i in range(0, 16):
         # print(PSK8.delta7[j])
         # print(PSK8.delta8[j])
 
-        if (PSK8.delta1[j] < PSK8.delta2[j]) and (PSK8.delta1[j] < PSK8.delta3[j]) and (PSK8.delta1[j] < PSK8.delta4[j]) and (PSK8.delta1[j] < PSK8.delta5[j]) and (PSK8.delta1[j] < PSK8.delta6[j]) and (PSK8.delta1[j] < PSK8.delta7[j]) and (PSK8.delta1[j] < PSK8.delta8[j]):
+        if (PSK8.delta1[j] < PSK8.delta2[j]) and (PSK8.delta1[j] < PSK8.delta3[j]) and (
+                PSK8.delta1[j] < PSK8.delta4[j]) and (PSK8.delta1[j] < PSK8.delta5[j]) and (
+                PSK8.delta1[j] < PSK8.delta6[j]) and (PSK8.delta1[j] < PSK8.delta7[j]) and (
+                PSK8.delta1[j] < PSK8.delta8[j]):
             # print(colored("1", 'yellow'))
             PSK8.transmittedSymbols.append(complex(1, 0))
-        elif (PSK8.delta2[j] < PSK8.delta1[j]) and (PSK8.delta2[j] < PSK8.delta3[j]) and (PSK8.delta2[j] < PSK8.delta4[j]) and (PSK8.delta2[j] < PSK8.delta5[j]) and (PSK8.delta2[j] < PSK8.delta6[j]) and (PSK8.delta2[j] < PSK8.delta7[j]) and (PSK8.delta2[j] < PSK8.delta8[j]):
+        elif (PSK8.delta2[j] < PSK8.delta1[j]) and (PSK8.delta2[j] < PSK8.delta3[j]) and (
+                PSK8.delta2[j] < PSK8.delta4[j]) and (PSK8.delta2[j] < PSK8.delta5[j]) and (
+                PSK8.delta2[j] < PSK8.delta6[j]) and (PSK8.delta2[j] < PSK8.delta7[j]) and (
+                PSK8.delta2[j] < PSK8.delta8[j]):
             # print(colored("2", 'yellow'))
             PSK8.transmittedSymbols.append(complex(1 / math.sqrt(2), 1 / math.sqrt(2)))
-        elif (PSK8.delta3[j] < PSK8.delta1[j]) and (PSK8.delta3[j] < PSK8.delta2[j]) and (PSK8.delta3[j] < PSK8.delta4[j]) and (PSK8.delta3[j] < PSK8.delta5[j]) and (PSK8.delta3[j] < PSK8.delta6[j]) and (PSK8.delta3[j] < PSK8.delta7[j]) and (PSK8.delta3[j] < PSK8.delta8[j]):
+        elif (PSK8.delta3[j] < PSK8.delta1[j]) and (PSK8.delta3[j] < PSK8.delta2[j]) and (
+                PSK8.delta3[j] < PSK8.delta4[j]) and (PSK8.delta3[j] < PSK8.delta5[j]) and (
+                PSK8.delta3[j] < PSK8.delta6[j]) and (PSK8.delta3[j] < PSK8.delta7[j]) and (
+                PSK8.delta3[j] < PSK8.delta8[j]):
             # print(colored("3", 'yellow'))
             PSK8.transmittedSymbols.append(complex(0, 1))
-        elif (PSK8.delta4[j] < PSK8.delta1[j]) and (PSK8.delta4[j] < PSK8.delta2[j]) and (PSK8.delta4[j] < PSK8.delta3[j]) and (PSK8.delta4[j] < PSK8.delta5[j]) and (PSK8.delta4[j] < PSK8.delta6[j]) and (PSK8.delta4[j] < PSK8.delta7[j]) and (PSK8.delta4[j] < PSK8.delta8[j]):
+        elif (PSK8.delta4[j] < PSK8.delta1[j]) and (PSK8.delta4[j] < PSK8.delta2[j]) and (
+                PSK8.delta4[j] < PSK8.delta3[j]) and (PSK8.delta4[j] < PSK8.delta5[j]) and (
+                PSK8.delta4[j] < PSK8.delta6[j]) and (PSK8.delta4[j] < PSK8.delta7[j]) and (
+                PSK8.delta4[j] < PSK8.delta8[j]):
             # print(colored("4", 'yellow'))
             PSK8.transmittedSymbols.append(complex(-1 / math.sqrt(2), 1 / math.sqrt(2)))
-        elif (PSK8.delta5[j] < PSK8.delta1[j]) and (PSK8.delta5[j] < PSK8.delta2[j]) and (PSK8.delta5[j] < PSK8.delta3[j]) and (PSK8.delta5[j] < PSK8.delta4[j]) and (PSK8.delta5[j] < PSK8.delta6[j]) and (PSK8.delta5[j] < PSK8.delta7[j]) and (PSK8.delta5[j] < PSK8.delta8[j]):
+        elif (PSK8.delta5[j] < PSK8.delta1[j]) and (PSK8.delta5[j] < PSK8.delta2[j]) and (
+                PSK8.delta5[j] < PSK8.delta3[j]) and (PSK8.delta5[j] < PSK8.delta4[j]) and (
+                PSK8.delta5[j] < PSK8.delta6[j]) and (PSK8.delta5[j] < PSK8.delta7[j]) and (
+                PSK8.delta5[j] < PSK8.delta8[j]):
             # print(colored("5", 'yellow'))
             PSK8.transmittedSymbols.append(complex(-1, 0))
-        elif (PSK8.delta6[j] < PSK8.delta1[j]) and (PSK8.delta6[j] < PSK8.delta2[j]) and (PSK8.delta6[j] < PSK8.delta3[j]) and (PSK8.delta6[j] < PSK8.delta4[j]) and (PSK8.delta6[j] < PSK8.delta5[j]) and (PSK8.delta6[j] < PSK8.delta7[j]) and (PSK8.delta6[j] < PSK8.delta8[j]):
+        elif (PSK8.delta6[j] < PSK8.delta1[j]) and (PSK8.delta6[j] < PSK8.delta2[j]) and (
+                PSK8.delta6[j] < PSK8.delta3[j]) and (PSK8.delta6[j] < PSK8.delta4[j]) and (
+                PSK8.delta6[j] < PSK8.delta5[j]) and (PSK8.delta6[j] < PSK8.delta7[j]) and (
+                PSK8.delta6[j] < PSK8.delta8[j]):
             # print(colored("6", 'yellow'))
             PSK8.transmittedSymbols.append(complex(-1 / math.sqrt(2), -1 / math.sqrt(2)))
-        elif (PSK8.delta7[j] < PSK8.delta1[j]) and (PSK8.delta7[j] < PSK8.delta2[j]) and (PSK8.delta7[j] < PSK8.delta3[j]) and (PSK8.delta7[j] < PSK8.delta4[j]) and (PSK8.delta7[j] < PSK8.delta5[j]) and (PSK8.delta7[j] < PSK8.delta6[j]) and (PSK8.delta7[j] < PSK8.delta8[j]):
+        elif (PSK8.delta7[j] < PSK8.delta1[j]) and (PSK8.delta7[j] < PSK8.delta2[j]) and (
+                PSK8.delta7[j] < PSK8.delta3[j]) and (PSK8.delta7[j] < PSK8.delta4[j]) and (
+                PSK8.delta7[j] < PSK8.delta5[j]) and (PSK8.delta7[j] < PSK8.delta6[j]) and (
+                PSK8.delta7[j] < PSK8.delta8[j]):
             # print(colored("7", 'yellow'))
             PSK8.transmittedSymbols.append(complex(0, -1))
-        elif (PSK8.delta8[j] < PSK8.delta1[j]) and (PSK8.delta8[j] < PSK8.delta2[j]) and (PSK8.delta8[j] < PSK8.delta3[j]) and (PSK8.delta8[j] < PSK8.delta4[j]) and (PSK8.delta8[j] < PSK8.delta5[j]) and (PSK8.delta8[j] < PSK8.delta6[j]) and (PSK8.delta8[j] < PSK8.delta7[j]):
+        elif (PSK8.delta8[j] < PSK8.delta1[j]) and (PSK8.delta8[j] < PSK8.delta2[j]) and (
+                PSK8.delta8[j] < PSK8.delta3[j]) and (PSK8.delta8[j] < PSK8.delta4[j]) and (
+                PSK8.delta8[j] < PSK8.delta5[j]) and (PSK8.delta8[j] < PSK8.delta6[j]) and (
+                PSK8.delta8[j] < PSK8.delta7[j]):
             # print(colored("8", 'yellow'))
             PSK8.transmittedSymbols.append(complex(1 / math.sqrt(2), -1 / math.sqrt(2)))
         else:
             print(colored("ERROR in Delta Check", 'red'))
-
 
         if PSK8.s[j] != PSK8.transmittedSymbols[j]:
             PSK8.symErrorCount += 1
@@ -396,10 +442,6 @@ for i in range(0, 16):
 
     PSK8.transmittedSymbols.pop(0)
     PSK8.transmittedSymbols.pop(0)
-
-
-
-
 
     # print("HERER")
     for j in range(0, int(PSK8.total / 3)):
@@ -435,12 +477,12 @@ for i in range(0, 16):
             PSK8.transmittedBits.append(0)
             PSK8.transmittedBits.append(0)
         elif PSK8.transmittedSymbols[j] == complex(0, -1):
-            #print(colored("7", 'blue'))
+            # print(colored("7", 'blue'))
             PSK8.transmittedBits.append(1)
             PSK8.transmittedBits.append(0)
             PSK8.transmittedBits.append(0)
         elif PSK8.transmittedSymbols[j] == complex(1 / math.sqrt(2), -1 / math.sqrt(2)):
-            #print(colored("8", 'blue'))
+            # print(colored("8", 'blue'))
             PSK8.transmittedBits.append(1)
             PSK8.transmittedBits.append(0)
             PSK8.transmittedBits.append(1)
@@ -448,8 +490,6 @@ for i in range(0, 16):
             print(colored("ERROR in Sym->Bits Transform", 'red'))
 
         # print(PSK8.transmittedBits[j])
-
-
 
         if PSK8.bits[j] != PSK8.transmittedBits[j]:
             PSK8.bitErrorCount += 1
@@ -464,7 +504,6 @@ for i in range(0, 16):
     # axs[i].scatter(x, y, marker=".", alpha=0.01, label="Eb/No="+str(i), color='k')
     # axs[i].legend(loc="upper right", framealpha=0)
 
-
     # print(colored("NEXT", 'blue'))
     # print(PSK8.SER)
     # print(PSK8.BER)
@@ -473,19 +512,9 @@ for i in range(0, 16):
 
     PSK8.SER.append(PSK8.symErrorCount / (PSK8.total / 3))
 
-    print(PSK8.SER)
-
+    # print(PSK8.SER)
 
 # plt.show()
-
-
-
-
-
-
-
-
-
 
 
 x = []
@@ -498,8 +527,8 @@ plt.semilogy(x, QAM4.BER, 'k-', label="4QAM BER")
 plt.semilogy(x, PSK8.BER, 'b-', label="8PSK BER")
 
 # print(BPSK.SER)
-    #print(BPSK.rt)
-    #print(BPSK.transmittedSymbols)
+# print(BPSK.rt)
+# print(BPSK.transmittedSymbols)
 
 # ----------------------------------------------------------------
 # Calculate Deltas
@@ -515,13 +544,10 @@ plt.semilogy(x, PSK8.BER, 'b-', label="8PSK BER")
 #     PSK8.delta2.append()
 
 # BPSK.newDynamic()
-print(BPSK.cStatic)
+# print(BPSK.cStatic)
 
 plt.xlabel("Eb/No")
 plt.ylabel("Bit Error Rate (BER) for Static CIR")
 plt.legend()
 plt.show()
 # print(BPSK.cDynamic)
-
-
-
