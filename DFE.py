@@ -26,6 +26,7 @@ class Multipath:
         self.delta6 = []
         self.delta7 = []
         self.delta8 = []
+        # self.cStatic = [complex(0.89, 0.92), complex(0.42, 0.37), complex(0.19, 0.12)]
         self.cStatic = [complex(0.89, 0.92), complex(0.42, 0.37), complex(0.19, 0.12)]
         # self.cStatic = [complex(1, 1), complex(0, 0), complex(0, 0)]
         self.cDynamic = [complex(0, 0), complex(0, 0), complex(0, 0)]
@@ -65,9 +66,9 @@ random.gauss(0, 1)
 # ----------------------------------------------------------------
 # Initialize
 # ----------------------------------------------------------------
-BPSK = Multipath(2000, 2)
-QAM4 = Multipath(4000, 4)
-PSK8 = Multipath(6000, 8)
+BPSK = Multipath(200000, 2)
+QAM4 = Multipath(400000, 4)
+PSK8 = Multipath(600000, 8)
 # ----------------------------------------------------------------
 # Set Bits and Symbols
 # ----------------------------------------------------------------
@@ -163,9 +164,9 @@ print("Length: " + str(len(PSK8.s)))
 # Get Transmitted Bits and Symbols
 # ----------------------------------------------------------------
 
-# fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
-# fig.subplots_adjust(hspace=0.001, wspace=0.001)
-# axs = axs.ravel()
+fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
+fig.subplots_adjust(hspace=0.001, wspace=0.001)
+axs = axs.ravel()
 
 for i in range(0, 16):
     BPSK.symErrorCount = 0
@@ -210,22 +211,22 @@ for i in range(0, 16):
     x = []
     y = []
 
-    # for l1 in range(0, len(BPSK.rt)):
-    #     x.append(BPSK.rt[l1].real)
-    #     y.append(BPSK.rt[l1].imag)
-    #
-    # axs[i].scatter(x, y, marker='.',  label="Eb/No="+str(i), color='k',  alpha = 0.01)
-    # axs[i].legend(loc="upper right", framealpha=0)
+    for l1 in range(0, len(BPSK.rt)):
+        x.append(BPSK.rt[l1].real)
+        y.append(BPSK.rt[l1].imag)
+
+    axs[i].scatter(x, y, marker='.',  label="Eb/No="+str(i), color='k',  alpha = 0.05)
+    axs[i].legend(loc="lower right", framealpha=0)
 
     BPSK.SER.append(BPSK.symErrorCount / BPSK.total)
-    print(BPSK.SER)
+    # print(BPSK.SER)
+    print(colored(BPSK.symErrorCount / BPSK.total, 'green'))
+plt.show()
 
-# plt.show()
 
-
-# fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
-# fig.subplots_adjust(hspace=0.001, wspace=0.001)
-# axs = axs.ravel()
+fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
+fig.subplots_adjust(hspace=0.001, wspace=0.001)
+axs = axs.ravel()
 
 print("4QAM")
 for i in range(0, 16):
@@ -308,12 +309,12 @@ for i in range(0, 16):
     x = []
     y = []
 
-    # for l1 in range(0, len(QAM4.rt)):
-    #     x.append(QAM4.rt[l1].real)
-    #     y.append(QAM4.rt[l1].imag)
-    #
-    # axs[i].scatter(x, y, marker=".", alpha = 0.01, label="Eb/No="+str(i), color='k')
-    # axs[i].legend(loc="upper right", framealpha=0)
+    for l1 in range(0, len(QAM4.rt)):
+        x.append(QAM4.rt[l1].real)
+        y.append(QAM4.rt[l1].imag)
+
+    axs[i].scatter(x, y, marker=".", alpha = 0.01, label="Eb/No="+str(i), color='k')
+    axs[i].legend(loc="upper right", framealpha=0)
 
     QAM4.BER.append(QAM4.bitErrorCount / QAM4.total)
 
@@ -321,12 +322,12 @@ for i in range(0, 16):
 
     print(QAM4.SER)
 
-# plt.show()
-#
-#
-# fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
-# fig.subplots_adjust(hspace=0.001, wspace=0.001)
-# axs = axs.ravel()
+plt.show()
+
+
+fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
+fig.subplots_adjust(hspace=0.001, wspace=0.001)
+axs = axs.ravel()
 
 for i in range(0, 16):
     PSK8.symErrorCount = 0
@@ -497,12 +498,12 @@ for i in range(0, 16):
     x = []
     y = []
 
-    # for l1 in range(0, len(PSK8.rt)):
-    #     x.append(PSK8.rt[l1].real)
-    #     y.append(PSK8.rt[l1].imag)
-    #
-    # axs[i].scatter(x, y, marker=".", alpha=0.01, label="Eb/No="+str(i), color='k')
-    # axs[i].legend(loc="upper right", framealpha=0)
+    for l1 in range(0, len(PSK8.rt)):
+        x.append(PSK8.rt[l1].real)
+        y.append(PSK8.rt[l1].imag)
+
+    axs[i].scatter(x, y, marker=".", alpha=0.01, label="Eb/No="+str(i), color='k')
+    axs[i].legend(loc="upper right", framealpha=0)
 
     # print(colored("NEXT", 'blue'))
     # print(PSK8.SER)
@@ -514,7 +515,7 @@ for i in range(0, 16):
 
     print(PSK8.SER)
 
-# plt.show()
+plt.show()
 
 
 x = []
