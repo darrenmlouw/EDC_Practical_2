@@ -80,9 +80,9 @@ for i in range(0, BPSK.total):
     else:
         BPSK.symbols.append(-1)
 
-print("BPSK Bits: " + str(BPSK.bits))
-print("BPSK Symb: " + str(BPSK.symbols))
-print()
+# print("BPSK Bits: " + str(BPSK.bits))
+# print("BPSK Symb: " + str(BPSK.symbols))
+# print()
 
 # Setting bits and symbols
 duo = [0] * 2
@@ -102,9 +102,9 @@ for i in range(QAM4.total):
         elif duo[0] == 1 and duo[1] == 0:
             QAM4.symbols.append(complex(1 / math.sqrt(2), -1 / math.sqrt(2)))
 
-print("4QAM Bits: " + str(QAM4.bits))
-print("4QAM Symb: " + str(QAM4.symbols))
-print()
+# print("4QAM Bits: " + str(QAM4.bits))
+# print("4QAM Symb: " + str(QAM4.symbols))
+# print()
 
 # Setting bits and symbols
 tri = [0] * 3
@@ -136,9 +136,9 @@ for i in range(PSK8.total):
         elif tri[0] == 1 and tri[1] == 0 and tri[2] == 0:
             PSK8.symbols.append(complex(0, -1))
 
-print("8PSK Bits: " + str(PSK8.bits))
-print("8PSK Symb: " + str(PSK8.symbols))
-print()
+# print("8PSK Bits: " + str(PSK8.bits))
+# print("8PSK Symb: " + str(PSK8.symbols))
+# print()
 # ----------------------------------------------------------------
 # Set s0 and s1
 # ----------------------------------------------------------------
@@ -154,12 +154,12 @@ PSK8.s.append(complex(1, 0))
 PSK8.s.append(complex(1, 0))
 PSK8.s.extend(PSK8.symbols)
 
-print(BPSK.s)
-print(QAM4.s)
-print(PSK8.s)
-print("Length: " + str(len(BPSK.s)))
-print("Length: " + str(len(QAM4.s)))
-print("Length: " + str(len(PSK8.s)))
+# print(BPSK.s)
+# print(QAM4.s)
+# print(PSK8.s)
+# print("Length: " + str(len(BPSK.s)))
+# print("Length: " + str(len(QAM4.s)))
+# print("Length: " + str(len(PSK8.s)))
 # ----------------------------------------------------------------
 # Get Transmitted Bits and Symbols
 # ----------------------------------------------------------------
@@ -220,15 +220,17 @@ for i in range(0, 16):
 
     BPSK.SER.append(BPSK.symErrorCount / BPSK.total)
     # print(BPSK.SER)
-    print(colored(BPSK.symErrorCount / BPSK.total, 'green'))
-plt.show()
 
 
 fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
 fig.subplots_adjust(hspace=0.001, wspace=0.001)
 axs = axs.ravel()
 
-print("4QAM")
+# fig, axs = plt.subplots(4, 4, sharex='col', sharey='row')
+# fig.subplots_adjust(hspace=0.001, wspace=0.001)
+# axs = axs.ravel()
+
+# print("4QAM")
 for i in range(0, 16):
     QAM4.symErrorCount = 0
     QAM4.transmittedSymbols = [complex(1 / math.sqrt(2), 1 / math.sqrt(2)), complex(1 / math.sqrt(2), 1 / math.sqrt(2))]
@@ -320,7 +322,7 @@ for i in range(0, 16):
 
     QAM4.SER.append(QAM4.symErrorCount / (QAM4.total / 2))
 
-    print(QAM4.SER)
+    # print(QAM4.SER)
 
 plt.show()
 
@@ -513,7 +515,7 @@ for i in range(0, 16):
 
     PSK8.SER.append(PSK8.symErrorCount / (PSK8.total / 3))
 
-    print(PSK8.SER)
+    # print(PSK8.SER)
 
 plt.show()
 
@@ -545,7 +547,7 @@ plt.semilogy(x, PSK8.BER, 'b-', label="8PSK BER")
 #     PSK8.delta2.append()
 
 # BPSK.newDynamic()
-print(BPSK.cStatic)
+# print(BPSK.cStatic)
 
 plt.xlabel("Eb/No")
 plt.ylabel("Bit Error Rate (BER) for Static CIR")
